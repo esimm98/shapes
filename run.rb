@@ -17,22 +17,29 @@ class GameWindow < Gosu::Window
 
   end
 
-  def update
-   @rectangle = Rectangle.new(mouse_x, mouse_y))
-   @square = Square.new(mouse_x, mouse_y))
-   @triangle = Star.new(mouse_x, mouse_y)
-  end
-
   def needs_cursor?
     true
   end
 
   def button_down(id)
-    Gosu::MsLeft
+    true if id == Gosu::MsLeft
+  end
+
+  def update
+   @rectangles.push(Rectangle.new(mouse_x, mouse_y)) if Gosu::button_down? Gosu::MsLeft
+   @squares.push(Square.new(mouse_x, mouse_y)) if Gosu::button_down? Gosu::MsRight
+   # @triangle = Star.new(mouse_x, mouse_y)
   end
 
   def draw
   	@background.draw(0, 0, ZOrder::Background)
+    @rectangles.each{|rectangle| rectangle.draw} 
+    @squares.each{|square| square.draw} 
+    # @triangles.each{|triangle| triangle.draw} 
+  end
+
+  def button_down(id)
+    close if id == Gosu::KbEscape
   end
 
 end
