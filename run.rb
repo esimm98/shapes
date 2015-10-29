@@ -26,16 +26,16 @@ class GameWindow < Gosu::Window
   end
 
   def update
-   @rectangles.push(Rectangle.new(mouse_x, mouse_y)) if Gosu::button_down? Gosu::MsLeft
-   @squares.push(Square.new(mouse_x, mouse_y)) if Gosu::button_down? Gosu::MsRight
-   # @triangle = Star.new(mouse_x, mouse_y)
+   @rectangles.push(Rectangle.new(mouse_x, mouse_y, 50, 25)) if Gosu::button_down? Gosu::MsLeft
+   @squares.push(Square.new(mouse_x, mouse_y, 25)) if Gosu::button_down? Gosu::MsRight
+   @triangles.push(Triangle.new(mouse_x, mouse_y, 50.0)) if Gosu::button_down? Gosu::MsMiddle
   end
 
   def draw
   	@background.draw(0, 0, ZOrder::Background)
     @rectangles.each{|rectangle| rectangle.draw} 
     @squares.each{|square| square.draw} 
-    # @triangles.each{|triangle| triangle.draw} 
+    @triangles.each{|triangle| triangle.draw} 
   end
 
   def button_down(id)

@@ -1,17 +1,23 @@
 require_relative "zorder"
 
 class Square
-	attr_reader :x, :y, :blue
+	attr_reader :x, :y, :color, :l
 
-	def initialize(x, y)
+	def initialize(x, y, l)
 		@x = x
 		@y = y
-		@blue = 0xff_0000ff
+		@color = Gosu::Color.new(0xff_000000)
+		@color.red = rand(256 - 40) + 40
+		@color.green = rand(256 - 40) + 40
+		@color.blue = rand(256 - 40) + 40
+
+		@l = l
 	end
 
 	def draw
-		Gosu.draw_quad(x, y, @blue, x + 50, y, @blue, x + 50, y + 50, @blue,
-			x, y + 50, blue, ZOrder::Shape)
+		for n in 0..l
+			Gosu.draw_line((x + n), y, @color, (x + n), (y + l), @color, ZOrder::Shape)
+		end
 	end
 
 end

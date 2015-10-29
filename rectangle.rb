@@ -1,17 +1,24 @@
 require_relative "zorder"
 
 class Rectangle
-	attr_reader :x, :y, :red
+	attr_reader :x, :y, :color, :l, :w
 
-	def initialize(x, y)
+	def initialize(x, y, l, w)
 		@x = x
 		@y = y
-		@red = 0xff_ff0000
+		@color = Gosu::Color.new(0xff_000000)
+		@color.red = rand(256 - 40) + 40
+		@color.green = rand(256 - 40) + 40
+		@color.blue = rand(256 - 40) + 40
+
+		@l = l
+		@w = w
 	end
 
 	def draw
-		Gosu.draw_quad(x, y, @red, x + 100, y, @red, x + 100, y + 50, @red,
-			x, y + 50, red, ZOrder::Shape)
+		for n in 0..l
+			Gosu.draw_line((x + n), y, @color, (x + n), (y + w), @color, ZOrder::Shape)
+		end
 	end
 
 end
